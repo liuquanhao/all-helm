@@ -1,0 +1,20 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dotenv
+data:
+  OPENAI_API_BASE_URL: {{ quote .Values.dotenv.data.OPENAI_API_BASE_URL }}
+  OPENAI_API_KEY: {{ quote .Values.dotenv.data.OPENAI_API_KEY }}
+  MJ_SERVER: {{ quote .Values.dotenv.data.MJ_SERVER }}
+  MJ_API_SECRET: {{ quote .Values.dotenv.data.MJ_API_SECRET }}
+  OPENAI_API_MODEL: {{ quote .Values.dotenv.data.OPENAI_API_MODEL }}
+  AUTH_SECRET_KEY: {{ quote .Values.dotenv.data.AUTH_SECRET_KEY }}
+  API_UPLOADER: {{ quote .Values.dotenv.data.API_UPLOADER }}
+  HIDE_SERVER: {{ quote .Values.dotenv.data.HIDE_SERVER }}
+  UPLOAD_IMG_SIZE: {{ quote .Values.dotenv.data.UPLOAD_IMG_SIZE }}
+  SYS_THEME: {{ quote .Values.dotenv.data.SYS_THEME }}
+  AUTH_SECRET_ERROR_COUNT: {{ quote .Values.dotenv.data.AUTH_SECRET_ERROR_COUNT }}
+  AUTH_SECRET_ERROR_TIME: {{ quote .Values.dotenv.data.AUTH_SECRET_ERROR_TIME }}
+  UPLOAD_TYPE: {{ quote .Values.dotenv.data.UPLOAD_TYPE }}
+{{- end }}

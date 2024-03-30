@@ -1,0 +1,10 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastgpt-pg-dotenv
+data:
+  POSTGRES_USER: {{ quote .Values.dotenv.data.POSTGRES_USER }}
+  POSTGRES_PASSWORD: {{ quote .Values.dotenv.data.POSTGRES_PASSWORD }}
+  POSTGRES_DB: {{ quote .Values.dotenv.data.POSTGRES_DB }}
+{{- end }}

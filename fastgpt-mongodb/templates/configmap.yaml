@@ -1,0 +1,9 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastgpt-mongodb-dotenv
+data:
+  MONGO_INITDB_ROOT_USERNAME: {{ quote .Values.dotenv.data.MONGO_INITDB_ROOT_USERNAME }}
+  MONGO_INITDB_ROOT_PASSWORD: {{ quote .Values.dotenv.data.MONGO_INITDB_ROOT_PASSWORD }}
+{{- end }}
