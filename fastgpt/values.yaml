@@ -5,10 +5,11 @@
 replicaCount: 1
 
 image:
-  repository: "ghcr.io/labring/fastgpt"
+  #repository: "ghcr.io/labring/fastgpt"
+  repository: "liuxu/fastgpt-debug"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v20240515"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -46,18 +47,19 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: fastgpt.linux.plus
+    - host: fastgpt-debug.linux.plus
       paths:
         - path: /
           pathType: Prefix
-            #tls:
-            #- secretName: linux-plus-tls
-            #  hosts:
-            #    - "*.linux.plus"
+  tls:
+  - secretName: linux-plus-tls
+    hosts:
+      - "*.linux.plus"
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -65,11 +67,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 2000m
-    memory: 2048Mi
+    cpu: 4000m
+    memory: 8000Mi
   requests:
-    cpu: 1000m
-    memory: 1024Mi
+    cpu: 2000m
+    memory: 4000Mi
 
 autoscaling:
   enabled: false
@@ -92,8 +94,14 @@ dotenv:
   enabled: true
   data:
     DEFAULT_ROOT_PSW: "hkzn123"
-    OPENAI_BASE_URL: "https://api.dwyu.top/v1"
-    CHAT_API_KEY: "sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478"
+    # 中转地址，如果是用官方号，不需要管。务必加 /v1
+    OPENAI_BASE_URL: "https://www.gptapi.us/v1"
+    CHAT_API_KEY: "sk-badLcLwDlZig7sCk8968C2Bd1cA34951Be8688B337EeC528"
+    #OPENAI_BASE_URL: "https://api.dwyu.top/v1"
+    #CHAT_API_KEY: "sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478"
+    #OPENAI_BASE_URL=https://api.openai-ch.top/v1
+    #CHAT_API_KEY=sk-hpZPJzSpjnsX9xqK25D2Ea18310c47C5B52aC99303373fEf
+
     DB_MAX_LINK: 100
     TOKEN_KEY: "any"
     ROOT_KEY: "root_key"
@@ -271,10 +279,6 @@ configJson:
       "charsPointsPrice": 0
     }
   }
-
-
-
-
 
 nodeSelector: {}
 

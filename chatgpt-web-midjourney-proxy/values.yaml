@@ -8,7 +8,7 @@ image:
   repository: ydlhero/chatgpt-web-midjourney-proxy
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v2.16.4"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -68,7 +68,7 @@ resources:
     cpu: 1000m
     memory: 2048Mi
   requests:
-    cpu: 500m 
+    cpu: 500m
     memory: 1024Mi
 
 livenessProbe:
@@ -97,10 +97,14 @@ volumes:
 dotenv:
   enabled: true
   data:
-    OPENAI_API_BASE_URL: https://api.dwyu.top
-    OPENAI_API_KEY: sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478
-    MJ_SERVER: https://api.dwyu.top
-    MJ_API_SECRET: sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478
+    #OPENAI_API_BASE_URL: https://api.dwyu.top
+    #OPENAI_API_KEY: sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478
+    #MJ_SERVER: https://api.dwyu.top
+    #MJ_API_SECRET: sk-Jfds42uk6FfcxOpLD74f8430EeEf447bBcA16dBcAb6cC478
+    OPENAI_API_BASE_URL: https://api.openai-ch.top
+    OPENAI_API_KEY: sk-OSXEQrbFQQ9kLaAa2bE46eB514Bb4bEe8d6fF86f47564297
+    MJ_SERVER: https://api.openai-ch.top
+    MJ_API_SECRET: sk-OSXEQrbFQQ9kLaAa2bE46eB514Bb4bEe8d6fF86f47564297
     OPENAI_API_MODEL: gpt-3.5-turbo
     AUTH_SECRET_KEY: hkzn123
     API_UPLOADER: 0

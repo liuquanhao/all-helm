@@ -35,7 +35,7 @@ spec:
         command:
           - rm
           - -fr
-          - /data/db/lost+found
+          - /var/lib/postgresql/data/lost+found
         image: busybox:1.32
         imagePullPolicy: IfNotPresent
         resources:

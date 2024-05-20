@@ -43,11 +43,32 @@ service:
   type: ClusterIP
   port: 27017
 
+#command: ["bash", "-c", "openssl rand -base64 128 > /data/mongodb.key; chmod 400 /data/mongodb.key; chown 999:999 /data/mongodb.key; exec docker-entrypoint.sh $$@ & until mongo -u myusername -p mypassword --authenticationDatabase admin --eval \"print\\('waited for connection'\\)\" > /dev/null 2>&1; do echo 'Waiting for MongoDB to start...'; sleep 2; done; mongosh -u myusername -p mypassword --authenticationDatabase admin --eval \"const isInited = rs.status().ok === 1; if(!isInited){rs.initiate({_id: 'rs0', members: [{ _id: 0, host: 'fastgpt-mongodb:27017' }]})}\"; wait $$!"]
+command:
+  - bash
+  - -c
+  - |
+    openssl rand -base64 128 > /data/mongodb.key
+    chmod 400 /data/mongodb.key
+    chown 999:999 /data/mongodb.key
+    echo 'const isInited = rs.status().ok === 1
+    if(!isInited){
+      rs.initiate({
+          _id: "rs0",
+          members: [
+              { _id: 0, host: "fastgpt-mongodb:27017" }
+          ]
+      })
+    }' > /data/initReplicaSet.js
+    exec docker-entrypoint.sh "$$@" &
+    until mongo -u myusername -p mypassword --authenticationDatabase admin --eval "print('waited for connection')" > /dev/null 2>&1; do
+      echo "Waiting for MongoDB to start..."
+      sleep 2
+    done
+    mongo -u myusername -p mypassword --authenticationDatabase admin /data/initReplicaSet.js
+    wait $$!
+
 args: ["mongod", "--keyFile", "/data/mongodb.key", "--replSet", "rs0"]
-
-command: ["bash", "-c", "openssl rand -base64 128 > /data/mongodb.key; chmod 400 /data/mongodb.key; chown 999:999 /data/mongodb.key; exec docker-entrypoint.sh $$@"]
-
-postCommand: ["mongosh", "-u", "myusername", "-p", "mypassword", "--authenticationDatabase", "admin", "--eval", "rs.initiate({_id: 'rs0', members: [{ _id: 0, host: 'fastgpt-mongodb:27017' }]});"]
 
 ingress:
   enabled: false
@@ -71,11 +92,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 2000m
-    memory: 4096Mi
+    cpu: 4000m
+    memory: 8000Mi
   requests:
-    cpu: 1000m
-    memory: 2048Mi
+    cpu: 2000m
+    memory: 4000Mi
 
 autoscaling:
   enabled: false
@@ -93,7 +114,7 @@ volumes:
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
 - name: fastgpt-mongodb-pv
-  mountPath: /data/db 
+  mountPath: /data/db
 
 dotenv:
   enabled: true
