@@ -1,0 +1,13 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "oneapi.fullname" . }}-dotenv
+data:
+  DEFAULT_ROOT_PSW: {{ quote .Values.dotenv.data.DEFAULT_ROOT_PSW }}
+  SQL_DSN: {{ quote .Values.dotenv.data.SQL_DSN }}
+  TZ: {{ quote .Values.dotenv.data.TZ }}
+  REDIS_CONN_STRING: {{ quote .Values.dotenv.data.REDIS_CONN_STRING }}
+  SYNC_FREQUENCY: {{ quote .Values.dotenv.data.SYNC_FREQUENCY }}
+{{- end }}
+

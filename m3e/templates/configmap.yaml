@@ -1,0 +1,9 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "m3e.fullname" . }}-dotenv
+data:
+  sk-key: {{ quote .Values.dotenv.data.sk_key }}
+{{- end }}
+

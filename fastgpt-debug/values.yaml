@@ -7,7 +7,6 @@ replicaCount: 1
 image:
   #repository: "ghcr.io/labring/fastgpt"
   repository: "liuxu/fastgpt-debug"
-  #repository: "liuxu/fastgpt"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "latest"
@@ -54,7 +53,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: fastgpt.linux.plus
+    - host: fastgpt-debug.linux.plus
       paths:
         - path: /
           pathType: Prefix
@@ -69,11 +68,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 4000m
-    memory: 8000Mi
-  requests:
     cpu: 2000m
-    memory: 4000Mi
+    memory: 2000Mi
+  requests:
+    cpu: 1000m
+    memory: 1000Mi
 
 autoscaling:
   enabled: false

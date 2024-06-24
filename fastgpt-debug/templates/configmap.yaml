@@ -1,0 +1,26 @@
+{{- if .Values.dotenv.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "fastgpt-debug.fullname" . }}-dotenv
+data:
+  DEFAULT_ROOT_PSW: {{ quote .Values.dotenv.data.DEFAULT_ROOT_PSW }}
+  OPENAI_BASE_URL: {{ quote .Values.dotenv.data.OPENAI_BASE_URL }}
+  CHAT_API_KEY: {{ quote .Values.dotenv.data.CHAT_API_KEY }}
+  DB_MAX_LINK: {{ quote .Values.dotenv.data.DB_MAX_LINK }}
+  TOKEN_KEY: {{ quote .Values.dotenv.data.TOKEN_KEY }}
+  ROOT_KEY: {{ quote .Values.dotenv.data.ROOT_KEY }}
+  FILE_TOKEN_KEY: {{ quote .Values.dotenv.data.FILE_TOKEN_KEY }}
+  MONGODB_URI: {{ quote .Values.dotenv.data.MONGODB_URI }}
+  PG_URL: {{ quote .Values.dotenv.data.PG_URL }}
+{{- end }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "fastgpt-debug.fullname" . }}-config-json
+data:
+  config.json: |-
+    {{ .Values.configJson | toJson }}
