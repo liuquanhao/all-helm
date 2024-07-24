@@ -11,7 +11,7 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "latest"
-  tag: "v20240621"
+  tag: "v20240709"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -278,9 +278,9 @@ configJson:
       {
         "model": "qwen-plus",
         "name": "qwen-plus",
-        "maxContext": 32000,
+        "maxContext": 30000,
         "maxResponse": 7000,
-        "quoteMaxToken": 25000,
+        "quoteMaxToken": 20000,
         "maxTemperature": 1.0,
         "charsPointsPrice": 0,
         "censor": false,
@@ -427,7 +427,7 @@ configJson:
       }
     ],
     "whisperModel": {
-      "model": "whisper-1",
+      "model": "whisper-large-v3",
       "name": "Whisper1",
       "charsPointsPrice": 0
     }

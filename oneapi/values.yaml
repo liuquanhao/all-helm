@@ -94,7 +94,7 @@ dotenv:
   enabled: true
   data:
     DEFAULT_ROOT_PSW: "hkzn123"
-    SQL_DSN: "oneapi:oneapi123@tcp(common-mysql:3306)/oneapi"
+    SQL_DSN: "root:hkzn123@tcp(oneapi-mysql:3306)/oneapi"
     TZ: "Asia/Shanghai"
     #REDIS_CONN_STRING: "redis://default:hkzn123@common-redis-master:6379"
     #SYNC_FREQUENCY: 60
