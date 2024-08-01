@@ -104,7 +104,7 @@ global:
       ##    cpu: 250m
       # -- Job resource requests
       requests:
-        cpu: 2000m
+        cpu: 1000m
         memory: 4Gi
       ## Example:
       ## limits:
@@ -112,7 +112,7 @@ global:
       ##    memory: 1Gi
       # -- Job resource limits
       limits:
-        cpu: 4000m
+        cpu: 2000m
         memory: 8Gi
 
     kube:
@@ -909,7 +909,7 @@ workload-launcher:
     ##    memory: 1Gi
     # -- The resources limits for the workload launcher container
     limits:
-      cpu: 4000m
+      cpu: 2000m
       memory: 8Gi
     ## Examples:
     ## requests:
@@ -917,7 +917,7 @@ workload-launcher:
     ##    cpu: 250m
     # -- The requested resources for the workload launcher container
     requests:
-      cpu: 2000m
+      cpu: 1000m
       memory: 4Gi
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/

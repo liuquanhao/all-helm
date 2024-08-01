@@ -43,10 +43,10 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 6008
+  port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 500m
@@ -68,10 +68,10 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 8000m
+    cpu: 6
     memory: 4000Mi
   requests:
-    cpu: 4000m
+    cpu: 4
     memory: 2000Mi
 
 autoscaling:
