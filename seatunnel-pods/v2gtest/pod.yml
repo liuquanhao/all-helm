@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: v2gtest-seatunnel
+spec:
+  containers:
+  - name: seatunnel
+    image: liuxu/seatunnel:v20240806
+    command: ["/bin/sh","-c","/opt/seatunnel/bin/seatunnel.sh --config /data/seatunnel.streaming.conf -e local"]
+    resources:
+      limits:
+        cpu: "1"
+        memory: 4G
+      requests:
+        cpu: "1"
+        memory: 2G
+    volumeMounts:
+      - name: seatunnel-config
+        mountPath: /data/seatunnel.streaming.conf
+        subPath: seatunnel.streaming.conf
+  volumes:
+        - name: seatunnel-config
+          configMap:
+            name: seatunnel-config
+            items:
+            - key: seatunnel.streaming.conf
+              path: seatunnel.streaming.conf

@@ -49,7 +49,9 @@ serviceAccount:
 # @default -- see `values.yaml`
 bootstrapScript: |
   #!/bin/bash
+  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple &&\
   pip install pydoris &&\
+  pip install prophet && \
   if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
 
 # -- The name of the secret which we will use to generate a superset_config.py file
