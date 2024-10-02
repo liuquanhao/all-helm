@@ -5,11 +5,11 @@ metadata:
 spec:
   containers:
   - name: seatunnel
-    image: liuxu/seatunnel:v20240806
+    image: liuxu/apache-seatunnel:v20240813
     command: ["/bin/sh","-c","/opt/seatunnel/bin/seatunnel.sh --config /data/seatunnel.streaming.conf -e local"]
     resources:
       limits:
-        cpu: "1"
+        cpu: "2"
         memory: 4G
       requests:
         cpu: "1"

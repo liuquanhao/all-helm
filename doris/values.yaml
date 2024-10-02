@@ -36,7 +36,7 @@ feSpec:
     # selectdb.app.classify: "classify-1"
   image:
     repository: selectdb/doris.fe-ubuntu
-    tag: 2.0.3
+    tag: 2.1.5
     # imagePullSecrets:
     # - name: imagePullSecret
   # config the service port for fe service.
@@ -189,9 +189,12 @@ feSpec:
       storage: 100Gi
     # when use specific storageclass, the storageClassName should reConfig, example as annotation.
       storageClassName: "longhorn-hdd"
+    jdbcDriversPersistentVolume:
+      storage: 10Gi
+      storageClassName: "longhorn-hdd"
   systemInitialization: {}
-    # initImage: "selectdb/alpine:latest"
-    # command: [ "/sbin/sysctl", "-w", "vm.max_map_count=2000000" ]
+    #initImage: "selectdb/alpine:latest"
+    #command: [ "/sbin/sysctl", "-w", "vm.max_map_count=2000000" ]
 
 beSpec:
   replicas: 1
@@ -200,7 +203,7 @@ beSpec:
     # selectdb.app.classify: "classify-1"
   image:
     repository: selectdb/doris.be-ubuntu
-    tag: 2.0.3
+    tag: 2.1.5
     # imagePullSecrets:
     # - name: imagePullSecret
   # config the service port for be service.
@@ -366,6 +369,9 @@ beSpec:
       storage: 100Gi
     # when use specific storageclass, the storageClassName should reConfig, example as annotation.
       storageClassName: "longhorn-hdd"
+    jdbcDriversPersistentVolume:
+      storage: 10Gi
+      storageClassName: "longhorn-hdd"
   systemInitialization: {}
     # initImage: "selectdb/alpine:latest"
     # command: [ "/sbin/sysctl", "-w", "vm.max_map_count=2000000" ]
@@ -377,7 +383,7 @@ cnSpec:
     # selectdb.app.classify: "classify-1"
   image:
     repository: selectdb/doris.be-ubuntu
-    tag: 2.0.3
+    tag: 2.1.5
     # imagePullSecrets:
     # - name: imagePullSecret
   # config the service port for cn service.
@@ -558,7 +564,7 @@ brokerSpec:
     # selectdb.app.classify: "classify-1"
   image:
     repository: selectdb/doris.broker-ubuntu
-    tag: 2.0.3
+    tag: 2.1.5
     # imagePullSecrets:
     # - name: imagePullSecret
   # specify the configMap, as a dictionary.

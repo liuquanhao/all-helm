@@ -98,31 +98,38 @@ doris cluster fe PVC
 */}}
 {{- define "doriscluster.fe.pvc" -}}
 
-    {{- if and .Values.feSpec.persistentVolumeClaim.metaPersistentVolume .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storage}}
+    {{- if .Values.feSpec.persistentVolumeClaim.metaPersistentVolume}}
     - mountPath: /opt/apache-doris/fe/doris-meta
       name: fe-meta
       persistentVolumeClaimSpec:
-        {{- if or .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storageClassName .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storageClassName }}
-        storageClassName: {{ default .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storageClassName .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storageClassName }}
-        {{- end }}
+        storageClassName: {{ .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storageClassName }}
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: {{ .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storage}}
     {{- end }}
-    {{- if and .Values.feSpec.persistentVolumeClaim.logsPersistentVolume .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storage}}
+    {{- if .Values.feSpec.persistentVolumeClaim.logsPersistentVolume}}
     - mountPath: /opt/apache-doris/fe/log
       name: fe-log
       persistentVolumeClaimSpec:
-        {{- if or .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storageClassName .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storageClassName}}
-        storageClassName: {{ default .Values.feSpec.persistentVolumeClaim.metaPersistentVolume.storageClassName .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storageClassName }}
-        {{- end }}
+        storageClassName: {{ .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storageClassName }}
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: {{ .Values.feSpec.persistentVolumeClaim.logsPersistentVolume.storage}}
+    {{- end }}
+    {{- if .Values.feSpec.persistentVolumeClaim.jdbcDriversPersistentVolume}}
+    - mountPath: /opt/apache-doris/fe/jdbc_drivers
+      name: fe-jdbc-drivers
+      persistentVolumeClaimSpec:
+        storageClassName: {{ .Values.feSpec.persistentVolumeClaim.jdbcDriversPersistentVolume.storageClassName }}
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.feSpec.persistentVolumeClaim.jdbcDriversPersistentVolume.storage}}
     {{- end }}
 {{- end -}}
 
@@ -155,6 +162,17 @@ doris cluster be PVC
         resources:
           requests:
             storage: {{ .Values.beSpec.persistentVolumeClaim.logsPersistentVolume.storage}}
+    {{- end }}
+    {{- if .Values.beSpec.persistentVolumeClaim.jdbcDriversPersistentVolume}}
+    - mountPath: /opt/apache-doris/be/jdbc_drivers
+      name: be-jdbc-drivers
+      persistentVolumeClaimSpec:
+        storageClassName: {{ .Values.feSpec.persistentVolumeClaim.jdbcDriversPersistentVolume.storageClassName }}
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.feSpec.persistentVolumeClaim.jdbcDriversPersistentVolume.storage}}
     {{- end }}
 {{- end -}}
 
